@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aviral Mishra | Developer Lab 💻</title>
+    <title>Aviral Mishra | Developer Galaxy 💫</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap");
       * {
@@ -14,7 +14,7 @@
 
       body {
         font-family: "Orbitron", sans-serif;
-        background: radial-gradient(circle at top, #001100, #000);
+        background: radial-gradient(circle at 20% 20%, #001400, #000);
         overflow: hidden;
         color: #00ff90;
       }
@@ -34,7 +34,7 @@
 
       header p {
         font-size: 0.95rem;
-        color: #88ffbb;
+        color: #b0ffc9;
         text-shadow: 0 0 10px #00ff90;
       }
 
@@ -42,29 +42,27 @@
         display: block;
       }
 
-      /* Green glow frame around the scene */
-      #glow-frame {
+      #neon-frame {
         position: fixed;
         inset: 0;
-        border: 4px solid #00ff90;
-        box-shadow: 0 0 25px #00ff90, inset 0 0 15px #00ff90;
-        z-index: 5;
+        border: 3px solid #00ff90;
+        box-shadow: 0 0 40px #00ff90, inset 0 0 25px #00ff90;
+        animation: pulse 2s infinite alternate;
         pointer-events: none;
-        animation: pulse 3s infinite alternate;
       }
 
       @keyframes pulse {
-        from {
-          box-shadow: 0 0 15px #00ff90, inset 0 0 10px #00ff90;
+        0% {
+          box-shadow: 0 0 25px #00ff90, inset 0 0 15px #00ff90;
         }
-        to {
-          box-shadow: 0 0 35px #00ffaa, inset 0 0 25px #00ffaa;
+        100% {
+          box-shadow: 0 0 60px #00ffaa, inset 0 0 30px #00ffaa;
         }
       }
 
       footer {
         position: absolute;
-        bottom: 15px;
+        bottom: 10px;
         width: 100%;
         text-align: center;
         font-size: 0.85rem;
@@ -76,18 +74,18 @@
   <body>
     <header>
       <h1>👨‍💻 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.</h1>
-      <p>Frontend Developer | SaaS | React | Waste Management System</p>
+      <p>Frontend Developer | React | SaaS Systems | Cloud Integration</p>
     </header>
 
-    <div id="glow-frame"></div>
+    <div id="neon-frame"></div>
     <canvas id="scene"></canvas>
 
-    <footer>⚡ “Building interactive SaaS systems with precision & design.”</footer>
+    <footer>⚡ “Building Intelligent SaaS Systems — One Pixel at a Time.” ⚡</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 
     <script>
-      // Setup
+      // === Setup Scene ===
       const canvas = document.getElementById("scene");
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -100,70 +98,101 @@
         0.1,
         1000
       );
-      camera.position.z = 35;
+      camera.position.z = 45;
 
-      // Lights
+      // === Lighting ===
       const ambient = new THREE.AmbientLight(0x00ff90, 1.2);
       scene.add(ambient);
-      const point = new THREE.PointLight(0x00ffaa, 2, 100);
-      point.position.set(0, 10, 20);
+      const point = new THREE.PointLight(0x00ffaa, 3, 120);
+      point.position.set(0, 20, 30);
       scene.add(point);
 
-      // Grid floor (glowing green lines)
-      const gridHelper = new THREE.GridHelper(100, 50, 0x00ff90, 0x00ff90);
-      gridHelper.material.opacity = 0.2;
-      gridHelper.material.transparent = true;
-      scene.add(gridHelper);
+      // === Galaxy Particles ===
+      const starsGeometry = new THREE.BufferGeometry();
+      const starCount = 3000;
+      const posArray = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 300;
+      }
+      starsGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
+      const starsMaterial = new THREE.PointsMaterial({
+        color: 0x00ff90,
+        size: 0.1,
+        transparent: true,
+        opacity: 0.9,
+      });
+      const stars = new THREE.Points(starsGeometry, starsMaterial);
+      scene.add(stars);
 
-      // Floating code laptops
+      // === 3D Floating Laptops ===
       const laptopGeometry = new THREE.BoxGeometry(6, 4, 0.2);
       const screenTexture = new THREE.CanvasTexture(createCodeCanvas());
       const laptopMaterial = new THREE.MeshStandardMaterial({
         emissive: 0x00ff90,
-        emissiveIntensity: 0.8,
+        emissiveIntensity: 1,
         map: screenTexture,
       });
 
       const laptops = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 5; i++) {
         const laptop = new THREE.Mesh(laptopGeometry, laptopMaterial.clone());
         laptop.position.set(
-          (Math.random() - 0.5) * 50,
-          (Math.random() - 0.5) * 30,
-          (Math.random() - 0.5) * 20
+          (Math.random() - 0.5) * 80,
+          (Math.random() - 0.5) * 40,
+          (Math.random() - 0.5) * 30
         );
         laptop.rotation.y = Math.random() * Math.PI;
         scene.add(laptop);
         laptops.push(laptop);
       }
 
-      // Floating particles
-      const particlesGeometry = new THREE.BufferGeometry();
-      const particlesCount = 1500;
-      const posArray = new Float32Array(particlesCount * 3);
-      for (let i = 0; i < particlesCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 200;
+      // === React Logos ===
+      const reactLogos = [];
+      const logoGeometry = new THREE.TorusGeometry(3, 0.1, 16, 100);
+      const logoMaterial = new THREE.MeshStandardMaterial({
+        color: 0x00ffcc,
+        emissive: 0x00ffcc,
+        emissiveIntensity: 0.8,
+      });
+      for (let i = 0; i < 4; i++) {
+        const logo = new THREE.Mesh(logoGeometry, logoMaterial);
+        logo.position.set(
+          (Math.random() - 0.5) * 60,
+          (Math.random() - 0.5) * 30,
+          (Math.random() - 0.5) * 30
+        );
+        scene.add(logo);
+        reactLogos.push(logo);
       }
-      particlesGeometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(posArray, 3)
-      );
-      const particlesMaterial = new THREE.PointsMaterial({
-        color: 0x00ff90,
-        size: 0.07,
-        transparent: true,
-      });
-      const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-      scene.add(particles);
 
-      // Mouse motion effect
-      let mouseX = 0, mouseY = 0;
+      // === Glowing Orbs ===
+      const orbGeometry = new THREE.SphereGeometry(1, 32, 32);
+      const orbMaterial = new THREE.MeshStandardMaterial({
+        color: 0x00ffaa,
+        emissive: 0x00ffaa,
+        emissiveIntensity: 2,
+      });
+      const orbs = [];
+      for (let i = 0; i < 10; i++) {
+        const orb = new THREE.Mesh(orbGeometry, orbMaterial);
+        orb.position.set(
+          (Math.random() - 0.5) * 100,
+          (Math.random() - 0.5) * 50,
+          (Math.random() - 0.5) * 40
+        );
+        scene.add(orb);
+        orbs.push(orb);
+      }
+
+      // === Mouse Interaction ===
+      let mouseX = 0,
+        mouseY = 0;
       document.addEventListener("mousemove", (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 4;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 4;
       });
 
-      // Function to create glowing React-like code
+      // === React-like Code Screen ===
       function createCodeCanvas() {
         const canvas = document.createElement("canvas");
         canvas.width = 256;
@@ -174,34 +203,56 @@
         ctx.font = "14px monospace";
         ctx.fillStyle = "#00ff90";
         const code = [
-          "const App = () => {",
+          "import React from 'react';",
+          "function App() {",
           "  return (",
-          "    <div className='app'>",
-          "      <h1>Hello React 🌱</h1>",
+          "    <div className='lab'>",
+          "      <h1>React Galaxy 🌌</h1>",
           "    </div>",
           "  );",
-          "};",
-          "export default App;",
+          "}",
+          "export default App;"
         ];
         code.forEach((line, i) => ctx.fillText(line, 10, 30 + i * 25));
         return canvas;
       }
 
-      // Animate
+      // === Animate Scene ===
       function animate() {
         requestAnimationFrame(animate);
+
+        // Star rotation
+        stars.rotation.y += 0.0015;
+        stars.rotation.x += 0.0005;
+
+        // Rotate and float laptops
         laptops.forEach((l, i) => {
-          l.rotation.y += 0.002;
-          l.position.y += Math.sin(Date.now() * 0.001 + i) * 0.01;
+          l.rotation.y += 0.003;
+          l.position.y += Math.sin(Date.now() * 0.002 + i) * 0.03;
         });
-        particles.rotation.y += 0.0005;
-        camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
-        camera.position.y += (-mouseY * 5 - camera.position.y) * 0.05;
+
+        // Spin React logos
+        reactLogos.forEach((logo) => {
+          logo.rotation.x += 0.02;
+          logo.rotation.y += 0.02;
+        });
+
+        // Floating orbs
+        orbs.forEach((orb, i) => {
+          orb.position.y += Math.sin(Date.now() * 0.0015 + i) * 0.02;
+        });
+
+        // Mouse-driven camera
+        camera.position.x += (mouseX * 15 - camera.position.x) * 0.1;
+        camera.position.y += (-mouseY * 15 - camera.position.y) * 0.1;
         camera.lookAt(scene.position);
+
         renderer.render(scene, camera);
       }
+
       animate();
 
+      // Responsive
       window.addEventListener("resize", () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
