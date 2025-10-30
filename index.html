@@ -4,41 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aviral Mishra | Developer Universe</title>
-
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
-
       * {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
       body {
-        margin: 0;
-        height: 100vh;
-        background: radial-gradient(circle at 30% 30%, #020024, #090979, #000);
-        color: white;
         font-family: "Poppins", sans-serif;
+        background: radial-gradient(circle at top, #0b002a, #000);
+        color: #fff;
         overflow-x: hidden;
+        height: 100vh;
       }
 
       header {
         position: absolute;
-        top: 30px;
+        top: 40px;
         width: 100%;
         text-align: center;
         z-index: 10;
       }
       header h1 {
         font-size: 2rem;
-        background: linear-gradient(90deg, #00e0ff, #ff00c8);
+        background: linear-gradient(90deg, #00fff7, #ff00c8);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 700;
         margin-bottom: 10px;
       }
       header h3 {
-        color: #bbb;
+        color: #aaa;
         font-weight: 400;
-        font-size: 1rem;
       }
 
       #scene-container {
@@ -55,10 +53,10 @@
         top: 65vh;
         min-height: 35vh;
         padding: 40px 20px;
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.04);
         border-top: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
       }
 
       h2.section-title {
@@ -66,7 +64,7 @@
         font-size: 1.6rem;
         font-weight: 600;
         margin-bottom: 30px;
-        color: #00ffff;
+        color: #00fff7;
       }
 
       .cards {
@@ -79,26 +77,26 @@
       .card {
         width: 220px;
         height: 130px;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 20px;
         text-align: center;
         padding: 20px;
-        transition: all 0.4s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         box-shadow: 0 0 25px rgba(0, 255, 255, 0.05);
+        cursor: pointer;
+        perspective: 1000px;
       }
-
       .card:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+        transform: rotateY(8deg) rotateX(8deg) translateY(-10px);
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
       }
 
       .card h2 {
-        color: #00ffff;
+        color: #00fff7;
         font-size: 2rem;
         margin-bottom: 5px;
       }
-
       .card p {
         font-size: 0.9rem;
         color: #ccc;
@@ -106,47 +104,59 @@
 
       footer {
         text-align: center;
-        color: #888;
+        color: #777;
         padding: 25px;
         font-size: 0.9rem;
+      }
+
+      /* floating glow animation */
+      @keyframes glowPulse {
+        0% {
+          box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+        }
+        100% {
+          box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>🌌 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.</h1>
-      <h3>Frontend Developer | SaaS & Product Engineering | Waste Management</h3>
+      <h1>💫 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.</h1>
+      <h3>Frontend Developer | SaaS | Waste Management | District-level Platform</h3>
     </header>
 
     <div id="scene-container"></div>
 
     <section class="analytics">
-      <h2 class="section-title">📊 Developer Analytics Universe</h2>
+      <h2 class="section-title">📈 Developer Analytics Universe</h2>
       <div class="cards">
-        <div class="card">
+        <div class="card" style="animation: glowPulse 3s infinite alternate">
           <h2 id="followers">--</h2>
           <p>Followers</p>
         </div>
-        <div class="card">
+        <div class="card" style="animation: glowPulse 4s infinite alternate">
           <h2 id="repos">--</h2>
-          <p>Public Repos</p>
+          <p>Repositories</p>
         </div>
-        <div class="card">
+        <div class="card" style="animation: glowPulse 5s infinite alternate">
           <h2 id="commits">--</h2>
           <p>Commits (This Year)</p>
         </div>
-        <div class="card">
+        <div class="card" style="animation: glowPulse 6s infinite alternate">
           <h2 id="prs">--</h2>
           <p>Pull Requests</p>
         </div>
-        <div class="card">
+        <div class="card" style="animation: glowPulse 3s infinite alternate">
           <h2>🔥</h2>
           <p>Contribution Streak</p>
         </div>
       </div>
 
-      <br /><br />
-      <p style="text-align:center;">
+      <p style="text-align:center; margin-top:40px;">
         <img
           src="https://github-readme-streak-stats.herokuapp.com/?user=Aviral-1&theme=react&hide_border=true"
           width="430"
@@ -155,14 +165,12 @@
       </p>
     </section>
 
-    <footer>
-      ✨ “Code is like art — every line should have a purpose.” ✨
-    </footer>
+    <footer>🚀 “Turning ideas into interactive experiences.”</footer>
 
     <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 
     <script>
-      // ===== 3D Galaxy Scene =====
+      // ==== 3D Motion Scene ====
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         75,
@@ -170,39 +178,72 @@
         0.1,
         1000
       );
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight * 0.65);
       document.getElementById("scene-container").appendChild(renderer.domElement);
 
-      const starsGeometry = new THREE.BufferGeometry();
-      const starCount = 1500;
-      const positions = [];
+      // Stars + orbs
+      const starGeometry = new THREE.BufferGeometry();
+      const starCount = 2000;
+      const pos = [];
       for (let i = 0; i < starCount; i++) {
-        positions.push(
-          (Math.random() - 0.5) * 80,
-          (Math.random() - 0.5) * 40,
-          (Math.random() - 0.5) * 80
-        );
+        pos.push((Math.random() - 0.5) * 200);
+        pos.push((Math.random() - 0.5) * 120);
+        pos.push((Math.random() - 0.5) * 200);
       }
-      starsGeometry.setAttribute(
-        "position",
-        new THREE.Float32BufferAttribute(positions, 3)
-      );
-      const starsMaterial = new THREE.PointsMaterial({
+      starGeometry.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      const starMaterial = new THREE.PointsMaterial({
         color: 0x00ffff,
-        size: 0.08,
+        size: 0.09,
         transparent: true,
         opacity: 0.8,
       });
-      const stars = new THREE.Points(starsGeometry, starsMaterial);
+      const stars = new THREE.Points(starGeometry, starMaterial);
       scene.add(stars);
 
-      camera.position.z = 20;
+      // Floating Orbs
+      const orbGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+      const orbMaterial = new THREE.MeshPhongMaterial({
+        emissive: 0x00ffff,
+        emissiveIntensity: 1,
+        shininess: 100,
+      });
+      const orbs = [];
+      for (let i = 0; i < 6; i++) {
+        const orb = new THREE.Mesh(orbGeometry, orbMaterial.clone());
+        orb.position.set(
+          (Math.random() - 0.5) * 40,
+          (Math.random() - 0.5) * 20,
+          (Math.random() - 0.5) * 30
+        );
+        scene.add(orb);
+        orbs.push(orb);
+      }
+
+      const light = new THREE.PointLight(0xffffff, 1);
+      light.position.set(5, 10, 15);
+      scene.add(light);
+
+      camera.position.z = 30;
+
+      // Mouse parallax
+      let mouseX = 0, mouseY = 0;
+      document.addEventListener("mousemove", (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
 
       function animate() {
         requestAnimationFrame(animate);
-        stars.rotation.x += 0.0008;
-        stars.rotation.y += 0.0015;
+        stars.rotation.x += 0.0007;
+        stars.rotation.y += 0.001;
+        orbs.forEach((o, i) => {
+          o.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
+          o.material.emissive.setHSL((Date.now() * 0.0001 + i / 6) % 1, 1, 0.5);
+        });
+        camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
         renderer.render(scene, camera);
       }
       animate();
@@ -213,7 +254,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight * 0.65);
       });
 
-      // ===== Fetch GitHub Analytics =====
+      // GitHub Stats
       async function fetchGitHubStats() {
         const res = await fetch("https://api.github.com/users/Aviral-1");
         const data = await res.json();
