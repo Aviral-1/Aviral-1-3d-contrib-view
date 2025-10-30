@@ -1,58 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aviral Mishra | 3D Contributions</title>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
-  <style>
-    body { margin: 0; overflow: hidden; background: #0d1117; }
-    canvas { display: block; }
-  </style>
-</head>
-<body>
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x0d1117);
-    document.body.appendChild(renderer.domElement);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+🌐 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.
+Frontend Developer | SaaS & Product Engineering
+    <style>
+      body {
+        margin: 0;
+        background-color: #000;
+        overflow: hidden;
+        font-family: "Poppins", sans-serif;
+        color: white;
+      }
+      h1 {
+        position: absolute;
+        top: 30px;
+        width: 100%;
+        text-align: center;
+        font-size: 1.8rem;
+        color: #00ffff;
+      }
+      #container {
+        width: 100vw;
+        height: 100vh;
+      }
+      #info {
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🌟 Aviral Mishra — 3D GitHub Contribution Graph</h1>
+    <div id="container"></div>
+    <div id="info">Loading your contributions...</div>
 
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(10, 10, 15);
-    controls.update();
+    <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+    <script src="https://unpkg.com/three-globe@2.27.1"></script>
+    <script src="https://unpkg.com/d3-scale-chromatic@3.0.0/dist/d3-scale-chromatic.min.js"></script>
 
-    const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-    for (let i = 0; i < 200; i++) {
-      const color = new THREE.Color(`hsl(${Math.random() * 180 + 180}, 100%, 60%)`);
-      const material = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.8 });
-      const cube = new THREE.Mesh(geometry, material);
-      cube.position.set(
-        Math.random() * 10 - 5,
-        Math.random() * 5,
-        Math.random() * 10 - 5
+    <script>
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
       );
-      scene.add(cube);
-    }
-
-    const light = new THREE.PointLight(0xffffff, 1.5, 100);
-    light.position.set(5, 10, 5);
-    scene.add(light);
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      scene.rotation.y += 0.002;
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script>
-</body>
+      document.getElementById("container").appendChild(renderer.domElement);
+
+      // Lighting
+      const ambient = new THREE.AmbientLight(0x888888);
+      scene.add(ambient);
+      const point = new THREE.PointLight(0x00ffff, 2);
+      point.position.set(10, 10, 10);
+      scene.add(point);
+
+      // Generate fake contribution cubes
+      const group = new THREE.Group();
+      const size = 0.5;
+      const spacing = 0.6;
+      const rows = 7;
+      const cols = 53;
+
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          const geometry = new THREE.BoxGeometry(size, size, size);
+          const intensity = Math.random();
+          const color = new THREE.Color(
+            `hsl(${180 + intensity * 100}, 100%, 50%)`
+          );
+          const material = new THREE.MeshStandardMaterial({
+            color: color,
+            emissive: color,
+            emissiveIntensity: 0.6 + intensity * 0.8,
+          });
+          const cube = new THREE.Mesh(geometry, material);
+          cube.position.set(
+            (x - cols / 2) * spacing,
+            (y - rows / 2) * spacing,
+            Math.random() * 0.5
+          );
+          group.add(cube);
+        }
+      }
+
+      scene.add(group);
+      camera.position.z = 10;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        group.rotation.x += 0.002;
+        group.rotation.y += 0.004;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+  </body>
 </html>
