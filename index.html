@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviral Mishra | 3D Contributions</title>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; background: #0d1117; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x0d1117);
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.set(10, 10, 15);
+    controls.update();
+
+    const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    for (let i = 0; i < 200; i++) {
+      const color = new THREE.Color(`hsl(${Math.random() * 180 + 180}, 100%, 60%)`);
+      const material = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.8 });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(
+        Math.random() * 10 - 5,
+        Math.random() * 5,
+        Math.random() * 10 - 5
+      );
+      scene.add(cube);
+    }
+
+    const light = new THREE.PointLight(0xffffff, 1.5, 100);
+    light.position.set(5, 10, 5);
+    scene.add(light);
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      scene.rotation.y += 0.002;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
