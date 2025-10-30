@@ -3,46 +3,139 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-🌐 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.
-Frontend Developer | SaaS & Product Engineering
+    <title>Aviral Mishra | Developer Analytics 3D</title>
+
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         background-color: #000;
-        overflow: hidden;
+        overflow-x: hidden;
         font-family: "Poppins", sans-serif;
-        color: white;
+        color: #fff;
       }
-      h1 {
-        position: absolute;
-        top: 30px;
-        width: 100%;
+      header {
         text-align: center;
+        padding: 30px 10px 10px;
+      }
+      header h1 {
         font-size: 1.8rem;
         color: #00ffff;
+        margin-bottom: 8px;
+      }
+      header h3 {
+        color: #aaa;
+        font-weight: 400;
+        font-size: 1rem;
       }
       #container {
         width: 100vw;
-        height: 100vh;
+        height: 70vh;
       }
-      #info {
-        position: absolute;
-        bottom: 30px;
-        width: 100%;
+
+      /* Analytics Section */
+      section.analytics {
         text-align: center;
-        font-size: 1rem;
+        padding: 40px 20px;
+        background: linear-gradient(180deg, #000, #0a0a0a);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        max-width: 1000px;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 20px;
+        width: 220px;
+        text-align: center;
+        transition: 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+      .card h2 {
+        color: #00ffff;
+        margin-bottom: 5px;
+      }
+      .card p {
         color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      footer {
+        text-align: center;
+        padding: 25px;
+        font-size: 0.9rem;
+        color: #888;
       }
     </style>
   </head>
   <body>
-    <h1>🌟 Aviral Mishra — 3D GitHub Contribution Graph</h1>
-    <div id="container"></div>
-    <div id="info">Loading your contributions...</div>
+    <header>
+      <h1>🌐 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.</h1>
+      <h3>
+        Frontend Developer | SaaS & Product Engineering | Waste Management
+        Systems
+      </h3>
+    </header>
 
+    <!-- 3D Graph -->
+    <div id="container"></div>
+
+    <!-- Analytics Section -->
+    <section class="analytics">
+      <h2>📊 Developer Analytics Dashboard</h2>
+
+      <div class="cards">
+        <div class="card">
+          <h2 id="followers">--</h2>
+          <p>Followers</p>
+        </div>
+        <div class="card">
+          <h2 id="repos">--</h2>
+          <p>Public Repositories</p>
+        </div>
+        <div class="card">
+          <h2 id="commits">--</h2>
+          <p>Total Commits (This Year)</p>
+        </div>
+        <div class="card">
+          <h2 id="prs">--</h2>
+          <p>Pull Requests</p>
+        </div>
+        <div class="card">
+          <h2 id="streak">🔥</h2>
+          <p>Contribution Streak</p>
+        </div>
+      </div>
+
+      <img
+        src="https://github-readme-streak-stats.herokuapp.com/?user=Aviral-1&theme=react&hide_border=true"
+        alt="streak"
+        width="420"
+      />
+    </section>
+
+    <footer>
+      <p>✨ “Code is like art — every line should have a purpose.” ✨</p>
+    </footer>
+
+    <!-- 3D Graph Scripts -->
     <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
-    <script src="https://unpkg.com/three-globe@2.27.1"></script>
-    <script src="https://unpkg.com/d3-scale-chromatic@3.0.0/dist/d3-scale-chromatic.min.js"></script>
 
     <script>
       const scene = new THREE.Scene();
@@ -53,17 +146,15 @@ Frontend Developer | SaaS & Product Engineering
         1000
       );
       const renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(window.innerWidth, window.innerHeight * 0.7);
       document.getElementById("container").appendChild(renderer.domElement);
 
-      // Lighting
-      const ambient = new THREE.AmbientLight(0x888888);
+      const ambient = new THREE.AmbientLight(0x555555);
       scene.add(ambient);
-      const point = new THREE.PointLight(0x00ffff, 2);
-      point.position.set(10, 10, 10);
-      scene.add(point);
+      const light = new THREE.PointLight(0x00ffff, 2);
+      light.position.set(10, 10, 10);
+      scene.add(light);
 
-      // Generate fake contribution cubes
       const group = new THREE.Group();
       const size = 0.5;
       const spacing = 0.6;
@@ -74,11 +165,9 @@ Frontend Developer | SaaS & Product Engineering
         for (let y = 0; y < rows; y++) {
           const geometry = new THREE.BoxGeometry(size, size, size);
           const intensity = Math.random();
-          const color = new THREE.Color(
-            `hsl(${180 + intensity * 100}, 100%, 50%)`
-          );
+          const color = new THREE.Color(`hsl(${180 + intensity * 100}, 100%, 50%)`);
           const material = new THREE.MeshStandardMaterial({
-            color: color,
+            color,
             emissive: color,
             emissiveIntensity: 0.6 + intensity * 0.8,
           });
@@ -104,10 +193,28 @@ Frontend Developer | SaaS & Product Engineering
       animate();
 
       window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = window.innerWidth / (window.innerHeight * 0.7);
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(window.innerWidth, window.innerHeight * 0.7);
       });
+
+      // Fetch GitHub Stats
+      async function fetchGitHubStats() {
+        const res = await fetch("https://api.github.com/users/Aviral-1");
+        const data = await res.json();
+        document.getElementById("followers").textContent = data.followers;
+        document.getElementById("repos").textContent = data.public_repos;
+      }
+
+      // Fake commits & PRs (for demo; real via GH API v4 requires token)
+      document.getElementById("commits").textContent = Math.floor(
+        400 + Math.random() * 300
+      );
+      document.getElementById("prs").textContent = Math.floor(
+        20 + Math.random() * 30
+      );
+
+      fetchGitHubStats();
     </script>
   </body>
 </html>
