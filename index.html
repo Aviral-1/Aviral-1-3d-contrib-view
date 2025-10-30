@@ -14,14 +14,14 @@
 
       body {
         font-family: "Orbitron", sans-serif;
-        background: radial-gradient(circle at 20% 20%, #001400, #000);
+        background: radial-gradient(circle at 30% 20%, #001000, #000);
         overflow: hidden;
-        color: #00ff90;
+        color: #aaffcc;
       }
 
       header {
         position: absolute;
-        top: 30px;
+        top: 25px;
         width: 100%;
         text-align: center;
         z-index: 10;
@@ -29,58 +29,90 @@
 
       header h1 {
         font-size: 2rem;
-        text-shadow: 0 0 15px #00ff90;
+        font-weight: 800;
+        background: linear-gradient(90deg, #00ff90, #aaffcc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 15px rgba(0, 255, 144, 0.3);
       }
 
       header p {
-        font-size: 0.95rem;
-        color: #b0ffc9;
-        text-shadow: 0 0 10px #00ff90;
+        font-size: 1rem;
+        color: #aaffcc;
+        text-shadow: 0 0 10px rgba(0, 255, 144, 0.3);
+        margin-top: 5px;
       }
 
-      canvas {
-        display: block;
+      .info-box {
+        position: absolute;
+        left: 30px;
+        top: 120px;
+        background: rgba(0, 40, 20, 0.3);
+        border: 1px solid rgba(0, 255, 144, 0.3);
+        border-radius: 15px;
+        padding: 20px 25px;
+        max-width: 300px;
+        box-shadow: 0 0 20px rgba(0, 255, 144, 0.15);
+        backdrop-filter: blur(6px);
+        color: #aaffcc;
+      }
+
+      .info-box h2 {
+        font-size: 1.1rem;
+        color: #00ff90;
+        margin-bottom: 10px;
+        text-shadow: 0 0 6px rgba(0, 255, 144, 0.4);
+      }
+
+      .info-box p {
+        font-size: 0.9rem;
+        margin: 4px 0;
+        line-height: 1.5;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #99ffbb;
+        text-shadow: 0 0 10px rgba(0, 255, 144, 0.3);
       }
 
       #neon-frame {
         position: fixed;
         inset: 0;
-        border: 3px solid #00ff90;
-        box-shadow: 0 0 40px #00ff90, inset 0 0 25px #00ff90;
-        animation: pulse 2s infinite alternate;
+        border: 2px solid rgba(0, 255, 144, 0.3);
+        box-shadow: 0 0 30px rgba(0, 255, 144, 0.2),
+          inset 0 0 20px rgba(0, 255, 144, 0.1);
+        border-radius: 10px;
         pointer-events: none;
       }
 
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 25px #00ff90, inset 0 0 15px #00ff90;
-        }
-        100% {
-          box-shadow: 0 0 60px #00ffaa, inset 0 0 30px #00ffaa;
-        }
-      }
-
-      footer {
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-        text-align: center;
-        font-size: 0.85rem;
-        color: #00ff90;
-        text-shadow: 0 0 10px #00ff90;
+      canvas {
+        display: block;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>👨‍💻 Aviral Mishra — Software Engineer @ Devertex Info Tech Pvt. Ltd.</h1>
-      <p>Frontend Developer | React | SaaS Systems | Cloud Integration</p>
+      <h1>Aviral Mishra 🚀</h1>
+      <p>Software Engineer</p>
     </header>
+
+    <div class="info-box">
+      <h2>👨‍💻 About Me</h2>
+      <p>Frontend Developer (React, Next.js, TypeScript)</p>
+      <p>Building SaaS & Waste Management Platforms</p>
+      <p>Currently engineering product for district-level data analytics</p>
+      <p>Skilled in PostgreSQL, MongoDB, Prisma, AWS & DevOps</p>
+    </div>
 
     <div id="neon-frame"></div>
     <canvas id="scene"></canvas>
 
-    <footer>⚡ “Building Intelligent SaaS Systems — One Pixel at a Time.” ⚡</footer>
+    <footer>💡 “Turning complex systems into beautiful simplicity.”</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 
@@ -101,15 +133,15 @@
       camera.position.z = 45;
 
       // === Lighting ===
-      const ambient = new THREE.AmbientLight(0x00ff90, 1.2);
+      const ambient = new THREE.AmbientLight(0x00ff90, 0.6);
       scene.add(ambient);
-      const point = new THREE.PointLight(0x00ffaa, 3, 120);
+      const point = new THREE.PointLight(0x00ffaa, 1.5, 120);
       point.position.set(0, 20, 30);
       scene.add(point);
 
       // === Galaxy Particles ===
       const starsGeometry = new THREE.BufferGeometry();
-      const starCount = 3000;
+      const starCount = 2500;
       const posArray = new Float32Array(starCount * 3);
       for (let i = 0; i < starCount * 3; i++) {
         posArray[i] = (Math.random() - 0.5) * 300;
@@ -119,22 +151,22 @@
         color: 0x00ff90,
         size: 0.1,
         transparent: true,
-        opacity: 0.9,
+        opacity: 0.7,
       });
       const stars = new THREE.Points(starsGeometry, starsMaterial);
       scene.add(stars);
 
-      // === 3D Floating Laptops ===
+      // === Floating 3D Laptops ===
       const laptopGeometry = new THREE.BoxGeometry(6, 4, 0.2);
       const screenTexture = new THREE.CanvasTexture(createCodeCanvas());
       const laptopMaterial = new THREE.MeshStandardMaterial({
         emissive: 0x00ff90,
-        emissiveIntensity: 1,
+        emissiveIntensity: 0.5,
         map: screenTexture,
       });
 
       const laptops = [];
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         const laptop = new THREE.Mesh(laptopGeometry, laptopMaterial.clone());
         laptop.position.set(
           (Math.random() - 0.5) * 80,
@@ -146,15 +178,15 @@
         laptops.push(laptop);
       }
 
-      // === React Logos ===
+      // === Floating React Logos ===
       const reactLogos = [];
       const logoGeometry = new THREE.TorusGeometry(3, 0.1, 16, 100);
       const logoMaterial = new THREE.MeshStandardMaterial({
         color: 0x00ffcc,
         emissive: 0x00ffcc,
-        emissiveIntensity: 0.8,
+        emissiveIntensity: 0.4,
       });
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         const logo = new THREE.Mesh(logoGeometry, logoMaterial);
         logo.position.set(
           (Math.random() - 0.5) * 60,
@@ -170,10 +202,10 @@
       const orbMaterial = new THREE.MeshStandardMaterial({
         color: 0x00ffaa,
         emissive: 0x00ffaa,
-        emissiveIntensity: 2,
+        emissiveIntensity: 0.8,
       });
       const orbs = [];
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 8; i++) {
         const orb = new THREE.Mesh(orbGeometry, orbMaterial);
         orb.position.set(
           (Math.random() - 0.5) * 100,
@@ -192,7 +224,7 @@
         mouseY = (e.clientY / window.innerHeight - 0.5) * 4;
       });
 
-      // === React-like Code Screen ===
+      // === React-like Code Canvas ===
       function createCodeCanvas() {
         const canvas = document.createElement("canvas");
         canvas.width = 256;
@@ -203,15 +235,15 @@
         ctx.font = "14px monospace";
         ctx.fillStyle = "#00ff90";
         const code = [
-          "import React from 'react';",
-          "function App() {",
-          "  return (",
-          "    <div className='lab'>",
-          "      <h1>React Galaxy 🌌</h1>",
-          "    </div>",
-          "  );",
-          "}",
-          "export default App;"
+          "const App = () => (",
+          "  <Galaxy dev='Aviral Mishra' />",
+          ");",
+          "",
+          "useEffect(() => {",
+          "  animateStars();",
+          "}, []);",
+          "",
+          "return <Innovation />;"
         ];
         code.forEach((line, i) => ctx.fillText(line, 10, 30 + i * 25));
         return canvas;
@@ -220,31 +252,25 @@
       // === Animate Scene ===
       function animate() {
         requestAnimationFrame(animate);
+        stars.rotation.y += 0.001;
+        stars.rotation.x += 0.0003;
 
-        // Star rotation
-        stars.rotation.y += 0.0015;
-        stars.rotation.x += 0.0005;
-
-        // Rotate and float laptops
         laptops.forEach((l, i) => {
-          l.rotation.y += 0.003;
-          l.position.y += Math.sin(Date.now() * 0.002 + i) * 0.03;
+          l.rotation.y += 0.002;
+          l.position.y += Math.sin(Date.now() * 0.0015 + i) * 0.02;
         });
 
-        // Spin React logos
         reactLogos.forEach((logo) => {
-          logo.rotation.x += 0.02;
-          logo.rotation.y += 0.02;
+          logo.rotation.x += 0.01;
+          logo.rotation.y += 0.01;
         });
 
-        // Floating orbs
         orbs.forEach((orb, i) => {
-          orb.position.y += Math.sin(Date.now() * 0.0015 + i) * 0.02;
+          orb.position.y += Math.sin(Date.now() * 0.0015 + i) * 0.015;
         });
 
-        // Mouse-driven camera
-        camera.position.x += (mouseX * 15 - camera.position.x) * 0.1;
-        camera.position.y += (-mouseY * 15 - camera.position.y) * 0.1;
+        camera.position.x += (mouseX * 15 - camera.position.x) * 0.08;
+        camera.position.y += (-mouseY * 15 - camera.position.y) * 0.08;
         camera.lookAt(scene.position);
 
         renderer.render(scene, camera);
@@ -252,7 +278,6 @@
 
       animate();
 
-      // Responsive
       window.addEventListener("resize", () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
